@@ -10,7 +10,6 @@ export class AppComponent implements OnInit {
 
   name = 'Angular 5';
   welcome ='Welcome';
-  input1=['string1','string2'];
   personName = "Anudeep";
   greet="Good evening";
   users = [];
@@ -19,9 +18,12 @@ export class AppComponent implements OnInit {
 
   GetData() {
     this.http.get<any[]>(this.apiUrl)
-      .subscribe(
-        data => this.users = data
-      );
+      .subscribe( {
+        next: data => this.users = data,
+        error: err => console.log('wrong URL-->'+err.url),
+        complete: ()=> console.log('completed')
+      }
+       );
   }
 
   ClearData() {
